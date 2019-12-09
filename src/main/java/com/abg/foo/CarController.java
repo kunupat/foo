@@ -1,8 +1,10 @@
 package com.abg.foo;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +13,9 @@ import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
+
+import io.opentracing.Tracer;
+import io.opentracing.contrib.spring.web.client.TracingRestTemplateInterceptor;
 
 @JsonAutoDetect(fieldVisibility = Visibility.ANY)
 class Car {
@@ -27,6 +32,9 @@ class Car {
 public class CarController {
 	
 	List<Car> carsList;
+	
+	@Autowired
+	Tracer tracer;
 	
 	@Value(value = "${bar.service.base.url}")
 	String barServiceURL;
@@ -50,8 +58,7 @@ public class CarController {
     ResponseEntity<String> callExternalAPI() {
     	System.out.println("/external request");
     	RestTemplate restTemplate = new RestTemplate();
-    	ResponseEntity<String> response
-    	  = restTemplate.getForEntity(externalServiceURL, String.class);
+    	ResponseEntity<String> response = restTemplate.getForEntity(externalServiceURL, String.class);
     	
     	return response;
     }
@@ -60,6 +67,9 @@ public class CarController {
     ResponseEntity<String> callBarService() {
     	System.out.println("/data request");
     	RestTemplate restTemplate = new RestTemplate();
+    	
+    	restTemplate.setInterceptors(Collections.singletonList(new TracingRestTemplateInterceptor(tracer)));
+    	
     	String barResourceUrl
     	  = barServiceURL + "/data";
     	ResponseEntity<String> response
