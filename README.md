@@ -3,7 +3,7 @@
 ## Build Docker Image with Maven
 `mvn package docker:build`
 
-## Build Maven Project witohut Docker build
+## Build Maven project without Docker build
 `mvn package`
 
 ## Run SpringBoot Project
