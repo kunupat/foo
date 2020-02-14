@@ -3,6 +3,12 @@
 ## Build Docker Image with Maven
 `mvn package docker:build`
 
+## Build Maven Project witohut Docker build
+`mvn package`
+
+## Run SpringBoot Project
+`mvn spring-boot:run`
+
 ## Docker Image
 <a href="https://hub.docker.com/repository/docker/kunupat/foo" target="_blank">kunupat/foo</a>
 
