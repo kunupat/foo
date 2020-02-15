@@ -19,7 +19,7 @@ public class FooApplication {
 		SpringApplication.run(FooApplication.class, args);
 	}
 	
-	@Bean
+	/*@Bean
     public static JaegerTracer getTracer() {
         
         Configuration.Propagation propogateConfig =  Configuration.Propagation.B3;
@@ -30,7 +30,7 @@ public class FooApplication {
         Configuration config = Configuration.fromEnv();	
         config.withCodec(codecConfig);
         return config.getTracer();
-	}
+	}*/
 	
 	/*@Bean
     public static JaegerTracer getTracer() {
