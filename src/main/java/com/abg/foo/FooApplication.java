@@ -13,9 +13,9 @@ import io.jaegertracing.internal.JaegerTracer;
 public class FooApplication {
 
 	public static void main(String[] args) {
-		Properties props = System.getProperties();
-		props.put("https.proxyHost", "170.225.13.50");
-		props.put("https.proxyPort", "8080");
+		//Properties props = System.getProperties();
+		//props.put("https.proxyHost", "170.225.13.50");
+		//props.put("https.proxyPort", "8080");
 		SpringApplication.run(FooApplication.class, args);
 	}
 	
